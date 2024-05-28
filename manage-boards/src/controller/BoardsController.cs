@@ -21,7 +21,7 @@ namespace manage_boards.src.controller
             _boardsRepository = boardsRepository;
         }
 
-        [HttpGet("{columnId}")]
+        [HttpGet("{boardId}")]
         [ProducesResponseType(typeof(Column), StatusCodes.Status200OK)]
         public async Task<ActionResult<Column>> GetBoard(int boardId, int userId)
         {
@@ -113,7 +113,7 @@ namespace manage_boards.src.controller
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{boardId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult DeleteBoard(int boardId, int userId)
         {

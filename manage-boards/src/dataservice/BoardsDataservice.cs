@@ -181,12 +181,12 @@ namespace manage_boards.src.dataservice
         {
             int boardId = reader.GetInt32("BoardId");
             int userId = reader.GetInt32("UserId");
-            string name = reader.GetString("ColumnName");
-            string description = reader.GetString("ColumnDescription");
+            string name = reader.GetString("BoardName");
+            string description = reader.GetString("BoardDescription");
             DateTime createDatetime = reader.GetDateTime("CreateDatetime");
             int createUserId = reader.GetInt32("CreateUserId");
-            DateTime updateDatetime = reader.GetDateTime("UpdateDatetime");
-            int updateUserId = reader.GetInt32("UpdateUserId");
+            DateTime? updateDatetime = reader.IsDBNull(reader.GetOrdinal("UpdateDatetime")) ? null : reader.GetDateTime("UpdateDatetime");
+            int? updateUserId = reader.IsDBNull(reader.GetOrdinal("UpdateUserId")) ? null : reader.GetInt32("UpdateUserId");
 
             return new Board()
             {

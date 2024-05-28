@@ -4,6 +4,6 @@ namespace manage_boards.src.clients
 {
     public interface IColumnsClient
     { 
-        public Task<ColumnList> GetColumns(int boardId, int userId);
+        public Task<List<Column>> GetColumns(int boardId, int userId);
     }
 }

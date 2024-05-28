@@ -15,11 +15,13 @@ var connectionString = configuration.GetConnectionString("ProjectBLocalConnectio
 
 
 // Add services to the container.
-builder.Services.AddControllers();;
+builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<IRequestValidator, RequestValidator>();
 builder.Services.AddSingleton<IBoardsRepository, BoardsRepository>();
 builder.Services.AddSingleton<IBoardsDataservice, BoardsDataservice>();
 builder.Services.AddSingleton<IColumnsClient, ColumnsClient>();
+builder.Services.AddSingleton<IAuthClient, AuthClient>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

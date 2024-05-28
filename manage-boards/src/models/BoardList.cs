@@ -4,6 +4,7 @@ namespace manage_boards.src.models
     {
         public BoardList()
         {
+            Boards = [];
         }
 
         public List<Board> Boards { get; set; }

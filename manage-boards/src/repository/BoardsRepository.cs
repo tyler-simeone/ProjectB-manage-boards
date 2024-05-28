@@ -2,7 +2,6 @@ using manage_boards.src.clients;
 using manage_boards.src.dataservice;
 using manage_boards.src.models;
 using manage_boards.src.models.requests;
-using Mysqlx.Cursor;
 
 namespace manage_boards.src.repository
 {
@@ -22,7 +21,10 @@ namespace manage_boards.src.repository
             try
             {
                 var board = await _boardsDataservice.GetBoard(boardId, userId); 
-                FetchAndAppendColumns(boardId, userId, board);
+                var boardColumns = await _columnsClient.GetColumns(boardId, userId);
+                board.ColumnCount = boardColumns.Count;
+                board.Columns = [];
+                board.Columns.AddRange(boardColumns);
                 return board;
             }
             catch (Exception ex)
@@ -37,7 +39,6 @@ namespace manage_boards.src.repository
             try
             {
                 BoardList boardList = await _boardsDataservice.GetBoards(userId);
-                boardList.Boards.ForEach(board => FetchAndAppendColumns(board.BoardId, userId, board));
                 return boardList;
             }
             catch (Exception ex)
@@ -84,12 +85,6 @@ namespace manage_boards.src.repository
                 Console.WriteLine($"Error: {ex.Message}");
                 throw;
             }
-        }
-
-        private async void FetchAndAppendColumns(int boardId, int userId, Board board)
-        {
-            var columns = await _columnsClient.GetColumns(boardId, userId);
-            board.Columns.AddRange(columns);
         }
     }
 }
